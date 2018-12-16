@@ -9,16 +9,24 @@ const courseSchema = new mongoose.Schema({
   // once we have a schema, we compile to model down witch gives us a Class (Course)
   name: String,
   author: String,
-  tags: [string],
+  tags: [String],
   date: { type: Date, default: Date.now },
   isPublished: Boolean
 })
 
 const Course = mongoose.model("Course", courseSchema)
-const course = new Course({
-  // create object based on class(Course) and store in DB
-  name: "Node.js Course",
-  author: "Luc",
-  tags: ["node", "backend"],
-  isPublished: true
-})
+
+async function createCourse() {
+  const course = new Course({
+    // create object based on class(Course) and store in DB
+    name: "Angular Course",
+    author: "Luc",
+    tags: ["angular", "frontend"],
+    isPublished: true
+  })
+
+  const result = await course.save() // will save to the DB
+  console.log(result)
+}
+
+createCourse()
